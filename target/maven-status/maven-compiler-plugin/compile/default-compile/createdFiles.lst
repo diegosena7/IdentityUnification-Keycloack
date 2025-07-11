@@ -1,0 +1,11 @@
+com\auth\contractservice\repository\UserProfileRepository.class
+com\auth\contractservice\config\OpenAPIConfig.class
+com\auth\contractservice\service\KeycloakService.class
+com\auth\contractservice\config\SecurityConfig.class
+com\auth\contractservice\ContractServiceApplication.class
+com\auth\contractservice\model\ClientCredentialsDTO.class
+com\auth\contractservice\model\ClientRequestDTO$ClientRequestDTOBuilder.class
+com\auth\contractservice\model\UserProfileEntity.class
+com\auth\contractservice\model\ClientRequestDTO.class
+com\auth\contractservice\service\ContractService.class
+com\auth\contractservice\controller\ContractController.class

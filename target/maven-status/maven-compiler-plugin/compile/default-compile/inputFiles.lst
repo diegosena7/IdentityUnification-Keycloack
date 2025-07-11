@@ -1,0 +1,10 @@
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\config\OpenAPIConfig.java
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\config\SecurityConfig.java
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\ContractServiceApplication.java
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\controller\ContractController.java
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\model\ClientCredentialsDTO.java
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\model\ClientRequestDTO.java
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\model\UserProfileEntity.java
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\repository\UserProfileRepository.java
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\service\ContractService.java
+C:\Users\diego\Desktop\Pos-Graduacao\Bootcamp\contract-service\src\main\java\com\auth\contractservice\service\KeycloakService.java

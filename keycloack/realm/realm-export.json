@@ -1,0 +1,42 @@
+{
+  "realm": "bootcamp-realm",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "my-client",
+      "secret": "my-client-secret",
+      "enabled": true,
+      "directAccessGrantsEnabled": true,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "standardFlowEnabled": true,
+      "redirectUris": ["*"]
+    }
+  ],
+  "users": [
+    {
+      "username": "bootuser",
+      "enabled": true,
+      "firstName": "Boot",
+      "lastName": "User",
+      "email": "bootuser@example.com",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "bootpass",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["user"]
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "user",
+        "description": "A standard user role"
+      }
+    ]
+  }
+}

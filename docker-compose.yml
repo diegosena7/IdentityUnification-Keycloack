@@ -1,0 +1,73 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_DB: bootcamp
+      POSTGRES_USER: bootcamp
+      POSTGRES_PASSWORD: secret
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bootcamp"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  keycloak-db-init:
+    image: postgres:latest
+    container_name: keycloak-db-init
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: bootcamp
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+    entrypoint: [ "sh", "-c", "
+      echo 'Aguardando PostgreSQL...';
+      until PGPASSWORD=secret psql -h postgres -U bootcamp -d postgres -c 'SELECT 1' &>/dev/null; do
+        echo 'Aguardando...';
+        sleep 2;
+      done;
+      echo 'Criando banco de dados Keycloak se não existir...'; 
+      PGPASSWORD=secret psql -h postgres -U bootcamp -d postgres -tc \"SELECT 1 FROM pg_database WHERE datname = 'keycloak'\" | grep -q 1 || \
+      PGPASSWORD=secret psql -h postgres -U bootcamp -d postgres -c \"CREATE DATABASE keycloak\" && \
+      PGPASSWORD=secret psql -h postgres -U bootcamp -d postgres -c \"GRANT ALL PRIVILEGES ON DATABASE keycloak TO bootcamp;\";
+      echo 'Banco de dados Keycloak pronto!';
+      "]
+
+  keycloak:
+    image: keycloak/keycloak:26.1.4
+    container_name: keycloak
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak?createDatabaseIfNotExist=true
+      KC_DB_USERNAME: bootcamp
+      KC_DB_PASSWORD: secret
+      KC_HEALTH_ENABLED: "true"
+      KC_LOG_LEVEL: info
+    healthcheck:
+      test: [ "CMD", "sh", "-c", "exec 3<>/dev/tcp/localhost/9000 && echo -e 'GET /health/ready HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n' >&3 && cat <&3 | grep '200 OK'" ]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+    volumes:
+      - ./keycloak/realm:/opt/keycloak/data/import
+    command:
+      - start-dev
+      - --import-realm
+    ports:
+      - 7080:8080
+      - 9000:9000
+    depends_on:
+      keycloak-db-init:
+        condition: service_completed_successfully
+
+volumes:
+  pgdata:
