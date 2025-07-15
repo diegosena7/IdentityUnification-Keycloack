@@ -24,5 +24,5 @@ public class ClientRequestDTO {
     private String lastName;
 
     @NotBlank
-    private String cpf;
+    private String customerId;
 }

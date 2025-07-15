@@ -37,7 +37,7 @@ public class KeycloakService {
     }
 
     public String createUser(ClientRequestDTO dto) {
-        log.info("Criando usuário...");
+        log.info("Criando usuário: {}", dto.getUsername());
 
         String token = getAdminToken();
 
@@ -89,6 +89,7 @@ public class KeycloakService {
     }
 
     private String getAdminToken() {
+        log.info("Buscando o token admin... ");
         MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
         form.add("grant_type", "password");
         form.add("client_id", adminClientId);

@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:15
     container_name: postgres
     environment:
       POSTGRES_DB: bootcamp
@@ -17,7 +17,7 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   keycloak-db-init:
-    image: postgres:latest
+    image: postgres:15
     container_name: keycloak-db-init
     environment:
       POSTGRES_PASSWORD: secret
@@ -28,7 +28,7 @@ services:
     restart: "no"
     entrypoint: [ "sh", "-c", "
       echo 'Aguardando PostgreSQL...';
-      until PGPASSWORD=secret psql -h postgres -U bootcamp -d postgres -c 'SELECT 1' &>/dev/null; do
+      until PGPASSWORD=secret psql -h postgres -U bootcam -d postgres -c 'SELECT 1' &>/dev/null; do
         echo 'Aguardando...';
         sleep 2;
       done;
@@ -40,12 +40,11 @@ services:
       "]
 
   keycloak:
-    image: keycloak/keycloak:26.1.4
+    image: quay.io/keycloak/keycloak:24.0.5
     container_name: keycloak
     environment:
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
-      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
       KC_DB: postgres
       KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak?createDatabaseIfNotExist=true
       KC_DB_USERNAME: bootcamp
