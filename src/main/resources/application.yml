@@ -6,9 +6,9 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:7080/realms/bootcamp-realm
+          issuer-uri: http://keycloak:7080/realms/bootcamp-realm
   datasource:
-    url: jdbc:postgresql://localhost:5432/bootcamp
+    url: jdbc:postgresql://postgres:5432/bootcamp
     username: bootcamp
     password: secret
   jpa:
@@ -19,7 +19,7 @@ spring:
       hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
 
 keycloak:
-  url: http://localhost:7080
+  url: http://keycloak:8080
   realm: bootcamp-realm
   admin-client-id: admin-cli
   admin-username: admin
