@@ -1,39 +1,29 @@
 package com.auth.contractservice.service;
 
-import com.auth.contractservice.model.ClientRequestDTO;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
-import java.util.List;
-import java.util.Map;
+import com.auth.contractservice.model.ClientRequestDTO;
+
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
 public class KeycloakService {
 
     private final WebClient webClient;
-    private final String bootcampRealm;
-    private final String adminClientId;
-    private final String adminUsername;
-    private final String adminPassword;
+    private KeycloakServiceProperties clientProperties;
 
-    public KeycloakService(
-            @Value("${keycloak.url}") String keycloakUrl,
-            @Value("${keycloak.realm}") String bootcampRealm,
-            @Value("${keycloak.admin-client-id}") String adminClientId,
-            @Value("${keycloak.admin-username}") String adminUsername,
-            @Value("${keycloak.admin-password}") String adminPassword
+    public KeycloakService(KeycloakServiceProperties clientProperties
     ) {
-        this.webClient = WebClient.builder().baseUrl(keycloakUrl).build();
-        this.bootcampRealm = bootcampRealm;
-        this.adminClientId = adminClientId;
-        this.adminUsername = adminUsername;
-        this.adminPassword = adminPassword;
+        this.clientProperties = clientProperties;
+        this.webClient = WebClient.builder().baseUrl(clientProperties.getUrl()).build();
     }
 
     public String createUser(ClientRequestDTO dto) {
@@ -56,7 +46,7 @@ public class KeycloakService {
 
 
         var response = webClient.post()
-                .uri("/admin/realms/" + bootcampRealm + "/users")
+                .uri("/admin/realms/" + clientProperties.getRealm() + "/users")
                 .header("Authorization", "Bearer " + token)
                 .bodyValue(body)
                 .exchangeToMono(res -> {
@@ -77,7 +67,7 @@ public class KeycloakService {
         // Agora buscar o ID do usuário recém-criado
         var user = webClient.get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/admin/realms/" + bootcampRealm + "/users")
+                        .path("/admin/realms/" + clientProperties.getRealm() + "/users")
                         .queryParam("username", dto.getUsername())
                         .build())
                 .header("Authorization", "Bearer " + token)
@@ -92,11 +82,12 @@ public class KeycloakService {
         log.info("Buscando o token admin... ");
         MultiValueMap<String, String> form = new LinkedMultiValueMap<>();
         form.add("grant_type", "password");
-        form.add("client_id", adminClientId);
-        form.add("username", adminUsername);
-        form.add("password", adminPassword);
+        form.add("client_id", clientProperties.getAdminClientId());
+        form.add("username", clientProperties.getAdminUsername());
+        form.add("password", clientProperties.getAdminPassword());
 
         var response = webClient.post()
+        // TODO Verificar o pq do uso do realm master.
                 .uri("/realms/master/protocol/openid-connect/token")
                 .bodyValue(form)
                 .retrieve()
