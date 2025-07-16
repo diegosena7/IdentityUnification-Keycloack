@@ -1,12 +1,11 @@
 package com.auth.contractservice.service;
 
-import com.auth.contractservice.model.CustomerContractEntity;
-import com.auth.contractservice.repository.ContratoRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.auth.contractservice.model.CustomerContractEntity;
+import com.auth.contractservice.repository.ContratoRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

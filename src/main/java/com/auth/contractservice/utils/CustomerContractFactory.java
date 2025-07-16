@@ -66,13 +66,13 @@ public class CustomerContractFactory {
         return prefix + "-" + UUID.randomUUID().toString().substring(0, 5);
     }
 
-    private static String randomCpf() {
+    /*private static String randomCpf() {
         // gera algo dummy com 11 dígitos
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 11; i++) {
             sb.append(ThreadLocalRandom.current().nextInt(0, 9));
         }
         return sb.toString();
-    }
+    }*/
 }
 

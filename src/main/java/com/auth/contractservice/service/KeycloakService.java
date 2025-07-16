@@ -96,7 +96,7 @@ public class KeycloakService {
         form.add("username", adminUsername);
         form.add("password", adminPassword);
 
-        Map response = webClient.post()
+        var response = webClient.post()
                 .uri("/realms/master/protocol/openid-connect/token")
                 .bodyValue(form)
                 .retrieve()

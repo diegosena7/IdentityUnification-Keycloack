@@ -1,0 +1,40 @@
+{
+  "groups": [
+    {
+      "name": "keycloak",
+      "type": "com.auth.contractservice.service.KeycloakServiceProperties",
+      "sourceType": "com.auth.contractservice.service.KeycloakServiceProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "keycloak.admin-client-id",
+      "type": "java.lang.String",
+      "sourceType": "com.auth.contractservice.service.KeycloakServiceProperties"
+    },
+    {
+      "name": "keycloak.admin-password",
+      "type": "java.lang.String",
+      "sourceType": "com.auth.contractservice.service.KeycloakServiceProperties"
+    },
+    {
+      "name": "keycloak.admin-username",
+      "type": "java.lang.String",
+      "sourceType": "com.auth.contractservice.service.KeycloakServiceProperties"
+    },
+    {
+      "name": "keycloak.realm",
+      "type": "java.lang.String",
+      "sourceType": "com.auth.contractservice.service.KeycloakServiceProperties"
+    },
+    {
+      "name": "keycloak.url",
+      "type": "java.lang.String",
+      "sourceType": "com.auth.contractservice.service.KeycloakServiceProperties"
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}
