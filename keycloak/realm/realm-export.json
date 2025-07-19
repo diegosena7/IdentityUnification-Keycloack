@@ -11,6 +11,26 @@
       "protocol": "openid-connect",
       "standardFlowEnabled": true,
       "redirectUris": ["*"]
+    },
+    {
+      "clientId": "channel-app",
+      "description": "Channel APP Sample",
+      "rootUrl": "http://localhost:9090",
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "dDoAclRfmKoq5Ba4MIPPBYLm95YTprZl",
+      "redirectUris": ["/*"],
+      "webOrigins": ["/*"],
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect"
     }
   ],
   "users": [
