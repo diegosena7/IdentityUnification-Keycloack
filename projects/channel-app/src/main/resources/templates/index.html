@@ -5,10 +5,10 @@
     <div class="container">
         <div class="mt-5">
             <div class="text-center hero my-5">
-                <img class="mb-3 app-logo" src="/images/logo.png" alt="Spring logo" width="120"/>
-                <h1 class="mb-4">Spring Boot Login Sample Project</h1>
+                <img class="mb-3 app-logo" alt="RCJDL Bank" width="1024" src="/images/logo.png"/>
+                <!-- <h1 class="mb-4">RCJDL Bank</h1> -->
                 <p class="lead">
-                    This is a sample application that demonstrates an authentication flow for a MVC web application using Spring Boot.
+                    Projeto de exemplo para simular um canal do <i>RCJDL Bank</i> para o trabalho final do curso de MBA em Arquitetura de Soluções Digitais
                 </p>
             </div>
 
@@ -16,7 +16,12 @@
             
 
             <div class="next-steps my-5">
-                <h2 class="my-5 text-center">Sample for authenticated and authorized resources on the view!</h2>
+                <h2 class="my-5 text-center" th:if="${@environment.getProperty('app.channel')}" th:text="'Canal -> ' + ${@environment.getProperty('app.channel')}"></h2>
+
+                <h2 class="my-5 text-center"
+                    sec:authorize="isAuthenticated()"
+                    th:text="'Bem vindo ' + (${#authentication.principal.attributes['given_name'] ?: ''} + ' ' + (${#authentication.principal.attributes['family_name'] ?: ''}))">
+                </h2>
 
                 <div class="row">
                     <div class="col-md-5 mb-4" sec:authorize="isAuthenticated()">

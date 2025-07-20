@@ -93,6 +93,36 @@ services:
     networks:
       - backend
 
+  channel-a-service:
+    build: ./projects/channel-app
+    container_name: channel-a
+    environment:
+      APP_CHANNEL: CARTÃO DE CRÉDITO
+      SERVER_PORT: 9090
+      CLIENT_ID: channel-a
+    ports:
+      - "9090:9090"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    networks:
+      - backend
+
+  channel-b-service:
+    build: ./projects/channel-app
+    container_name: channel-b
+    environment:
+      APP_CHANNEL: EMPRÉSTIMO
+      SERVER_PORT: 9091
+      CLIENT_ID: channel-b
+    ports:
+      - "9091:9091"
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    networks:
+      - backend
+
 volumes:
   pgdata:
 

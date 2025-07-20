@@ -1,4 +1,4 @@
-FROM gradle:6.5-jdk8
+FROM gradle:8.14.3-jdk21
 
 WORKDIR /tmp
 ADD . /tmp
@@ -6,4 +6,5 @@ ADD . /tmp
 RUN gradle build
 
 CMD ["gradle", "clean", "bootRun"]
-EXPOSE 3000
+EXPOSE 9090
+EXPOSE 9091

@@ -1,5 +1,8 @@
+app:
+  channel: ${APP_CHANNEL:CANAL XPTO}
+
 server:
-  port: 9090
+  port: ${SERVER_PORT:9090}
 
 logging:
   level:
@@ -13,8 +16,10 @@ spring:
       client:
         registration:
           keycloak:
-            client-id: channel-app
+            client-id: ${CLIENT_ID:channel-xpto}
             client-secret: dDoAclRfmKoq5Ba4MIPPBYLm95YTprZl
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope:
               - openid
               - profile
@@ -22,5 +27,8 @@ spring:
               - address
         provider:
           keycloak:
-            # A barra final é importante!
-            issuer-uri: http://localhost:7080/realms/bootcamp-realm
+            #issuer-uri: ${ISSUER_URI:http://localhost:7080/realms/bootcamp-realm}
+            authorization-uri: http://localhost:7080/realms/bootcamp-realm/protocol/openid-connect/auth
+            jwk-set-uri: http://keycloak:8080/realms/bootcamp-realm/protocol/openid-connect/certs
+            token-uri: http://keycloak:8080/realms/bootcamp-realm/protocol/openid-connect/token
+            user-info-uri: http://keycloak:8080/realms/bootcamp-realm/protocol/openid-connect/userinfo

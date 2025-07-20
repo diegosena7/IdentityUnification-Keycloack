@@ -13,15 +13,35 @@
       "redirectUris": ["*"]
     },
     {
-      "clientId": "channel-app",
-      "description": "Channel APP Sample",
+      "clientId": "channel-a",
+      "description": "Channel A APP Sample",
       "rootUrl": "http://localhost:9090",
       "enabled": true,
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "secret": "dDoAclRfmKoq5Ba4MIPPBYLm95YTprZl",
-      "redirectUris": ["/*"],
-      "webOrigins": ["/*"],
+      "redirectUris": ["*"],
+      "webOrigins": ["*"],
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect"
+    },
+    {
+      "clientId": "channel-b",
+      "description": "Channel B APP Sample",
+      "rootUrl": "http://localhost:9091",
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "dDoAclRfmKoq5Ba4MIPPBYLm95YTprZl",
+      "redirectUris": ["*"],
+      "webOrigins": ["*"],
       "bearerOnly": false,
       "consentRequired": false,
       "standardFlowEnabled": true,
@@ -35,19 +55,41 @@
   ],
   "users": [
     {
-      "username": "bootuser",
+      "username": "customer_a",
       "enabled": true,
-      "firstName": "Boot",
-      "lastName": "User",
-      "email": "bootuser@example.com",
+      "firstName": "First",
+      "lastName": "Customer",
+      "email": "customer-a@example.com",
       "emailVerified": true,
       "credentials": [
         {
           "type": "password",
-          "value": "bootpass",
+          "value": "cusa",
           "temporary": false
         }
       ],
+      "attributes": {
+        "picture": "https://cdn-icons-png.flaticon.com/128/4140/4140048.png"
+      },
+      "realmRoles": ["user"]
+    },
+    {
+      "username": "customer_b",
+      "enabled": true,
+      "firstName": "Second",
+      "lastName": "Customer",
+      "email": "customer-b@example.com",
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "cusb",
+          "temporary": false
+        }
+      ],
+      "attributes": {
+        "picture": "https://cdn-icons-png.flaticon.com/128/6997/6997662.png"
+      },
       "realmRoles": ["user"]
     }
   ],
