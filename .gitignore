@@ -187,6 +187,7 @@ replay_pid*
 *.rdb
 
 ### VisualStudioCode ###
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

@@ -102,7 +102,7 @@ services:
       CLIENT_ID: channel-a
       # É preciso passar o IP real do host no endpoint de issuer_uri.
       # Altere na sua máquina!
-      ISSUER_URI: http://192.168.100.18:7080/realms/bootcamp-realm
+      ISSUER_URI: http://10.252.224.26:7080/realms/bootcamp-realm
     ports:
       - "9090:9090"
     depends_on:
@@ -120,7 +120,7 @@ services:
       CLIENT_ID: channel-b
       # É preciso passar o IP real do host no endpoint de issuer_uri.
       # Altere na sua máquina!
-      ISSUER_URI: http://192.168.100.18:7080/realms/bootcamp-realm
+      ISSUER_URI: http://10.252.224.26:7080/realms/bootcamp-realm
     ports:
       - "9091:9091"
     depends_on:
