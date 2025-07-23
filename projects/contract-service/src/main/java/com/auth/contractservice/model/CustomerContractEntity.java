@@ -1,16 +1,29 @@
 package com.auth.contractservice.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
-@Table(name = "customer_contract")
+@Table(name = "customer_contract", indexes = {@Index(columnList = "customerId", name = "idx_customerid")})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

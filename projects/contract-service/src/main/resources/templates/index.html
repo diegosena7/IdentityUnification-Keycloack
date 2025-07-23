@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default}">
+
+<div id="page" layout:fragment="content">
+    <div class="container">
+        <div class="mt-5">
+            <div class="text-center hero my-5">
+                <img class="mb-3 app-logo" alt="RCJDL Bank" width="1024" src="/images/logo.png"/>
+                <!-- <h1 class="mb-4">RCJDL Bank</h1> -->
+                <p class="lead">
+                    Projeto de exemplo para simular o Customer Identity HUB do <i>RCJDL Bank</i> para o trabalho final do curso de MBA em Arquitetura de Soluções Digitais
+                </p>
+
+                <div class="next-steps my-5">
+                    <h2 class="my-5 text-center" th:if="${@environment.getProperty('app.channel')}" th:text="${@environment.getProperty('app.channel')}"></h2>
+                </div>
+
+            </div>
+
+           
+
+            <hr/>
+            
+
+            <div class="next-steps my-5">
+                <h2 class="my-5 text-center" th:if="${@environment.getProperty('app.channel')}" th:text="${@environment.getProperty('app.channel')}"></h2>
+
+                <h2 class="my-5 text-center"
+                    sec:authorize="isAuthenticated()"
+                    th:text="'Bem vindo ' + (${#authentication.principal.attributes['given_name'] ?: ''} + ' ' + (${#authentication.principal.attributes['family_name'] ?: ''}))">
+                </h2>
+
+                <div class="row">
+                    <div class="col-md-5 mb-4" sec:authorize="isAuthenticated()">
+                        <h6 class="mb-3">
+                            <a href="#">
+                                <i class="fas fa-link mr-2">User Details</i>
+                            </a>
+                        </h6>
+                        <p>
+                            Logged name: <span sec:authentication="name"></span>
+                        </p>
+                        <p>
+                            Logged username: <span sec:authentication="principal.attributes[preferred_username]"></span>
+                        </p>
+                        <p>
+                            Principal Authorities: <br><span sec:authentication="principal.authorities"></span></br>
+                        </p>
+                        <p>
+                            Security Context Authorities: <br><span sec:authentication="authorities"></span></br>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5 mb-4" sec:authorize="isAuthenticated()">
+                        <h6 class="mb-3">
+                            <a href="#">
+                                <i class="fas fa-link mr-2">Authenticated Resource</i>
+                            </a>
+                        </h6>
+                        <p>This resource only appears when user is authenticated!</p>
+                    </div>
+
+                    <div class="col-md"></div>
+
+                    <div class="col-md-5 mb-4" sec:authorize="hasRole('Admin')">
+                        <h6 class="mb-3">
+                            <a href="#">
+                                <i class="fas fa-link mr-2">Authorized Resource</i>
+                            </a>
+                        </h6>
+                        <p>This resource only appears when user is authorized! The user needs to have an 'admin' role.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

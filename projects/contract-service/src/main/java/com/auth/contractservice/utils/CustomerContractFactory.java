@@ -12,7 +12,7 @@ public class CustomerContractFactory {
 
     public static CustomerContractEntity generatedContract(ClientRequestDTO clientRequestDTO) {
         return CustomerContractEntity.builder()
-                .customerId("cus-" + clientRequestDTO.getCustomerId())
+                .customerId(/*"cus-" +  */clientRequestDTO.getCustomerId())
                 .cpf(clientRequestDTO.getCustomerId())
                 .name(CustomerContractEntity.Name.builder()
                         .given(clientRequestDTO.getFirstName())

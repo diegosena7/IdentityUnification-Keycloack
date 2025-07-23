@@ -83,8 +83,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bootcamp
       SPRING_DATASOURCE_USERNAME: bootcamp
       SPRING_DATASOURCE_PASSWORD: secret
-      # se você precisar sobrescrever issuer do Keycloak:
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI: http://keycloak:8080/realms/bootcamp-realm
+      # É preciso passar o IP real do host no endpoint de issuer_uri.
+      # Altere na sua máquina!
+      ISSUER_URI: http://10.252.224.26:7080/realms/bootcamp-realm
+      KEYCLOAK_URL: http://10.252.224.26:7080
+      POSTGRES_URL: jdbc:postgresql://postgres:5432/bootcamp
     ports:
       - "8082:8082"
     depends_on:

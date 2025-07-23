@@ -1,14 +1,14 @@
 server:
-  port: 8082
+  port: 8083
 
 spring:
   security:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://keycloak:7080/realms/bootcamp-realm
+          issuer-uri: ${ISSUER_URI:http://localhost:7080/realms/bootcamp-realm}
   datasource:
-    url: jdbc:postgresql://postgres:5432/bootcamp
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/bootcamp}
     username: bootcamp
     password: secret
   jpa:
@@ -19,8 +19,16 @@ spring:
       '[hibernate.dialect]': org.hibernate.dialect.PostgreSQLDialect
 
 keycloak:
-  url: http://keycloak:8080
+  url: ${KEYCLOAK_URL:http://localhost:7080}
   realm: bootcamp-realm
   admin-client-id: admin-cli
   admin-username: admin
   admin-password: admin
+
+app:
+  channel: Customer Identity HUB
+
+#logging:
+#  level:
+#    '[org.springframework.security]': DEBUG
+#    '[org.springframework.web]': DEBUG
