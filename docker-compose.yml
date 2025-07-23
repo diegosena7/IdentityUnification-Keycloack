@@ -88,6 +88,7 @@ services:
       ISSUER_URI: http://10.252.224.26:7080/realms/bootcamp-realm
       KEYCLOAK_URL: http://10.252.224.26:7080
       POSTGRES_URL: jdbc:postgresql://postgres:5432/bootcamp
+      SERVER_PORT: 8082
     ports:
       - "8082:8082"
     depends_on:
