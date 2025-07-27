@@ -1,7 +1,7 @@
 package com.auth.contractservice.utils;
 
-import com.auth.contractservice.model.ClientRequestDTO;
-import com.auth.contractservice.model.CustomerContractEntity;
+import com.auth.contractservice.model.dto.ClientRequestDTO;
+import com.auth.contractservice.model.old.CustomerContractEntity;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -10,10 +10,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class CustomerContractFactory {
 
-    public static CustomerContractEntity generatedContract(ClientRequestDTO clientRequestDTO) {
+    public static CustomerContractEntity generatedContract(ClientRequestDTO clientRequestDTO, String customerID) {
         return CustomerContractEntity.builder()
-                .customerId(/*"cus-" +  */clientRequestDTO.getCustomerId())
-                .cpf(clientRequestDTO.getCustomerId())
+                .customerId(customerID)
+                .cpf(customerID)
                 .name(CustomerContractEntity.Name.builder()
                         .given(clientRequestDTO.getFirstName())
                         .family(clientRequestDTO.getLastName())

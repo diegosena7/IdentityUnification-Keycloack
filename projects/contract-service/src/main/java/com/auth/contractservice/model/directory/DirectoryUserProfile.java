@@ -1,19 +1,13 @@
-package com.auth.contractservice.model;
+package com.auth.contractservice.model.directory;
 
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Data;
 
-@Builder
 @Data
-public class ClientRequestDTO {
-
-    @NotBlank
-    private String username;
-
-    @NotBlank
-    private String password;
-
+@Builder
+public class DirectoryUserProfile {
     @NotBlank
     private String email;
 
@@ -23,6 +17,6 @@ public class ClientRequestDTO {
     @NotBlank
     private String lastName;
 
-    @NotBlank
-    private String customerId;
+    @NotNull
+    private DirectoryUserCredentials credentials;
 }

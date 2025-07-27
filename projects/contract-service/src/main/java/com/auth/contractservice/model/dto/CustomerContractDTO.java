@@ -1,4 +1,4 @@
-package com.auth.contractservice.model;
+package com.auth.contractservice.model.dto;
 
 import lombok.Data;
 import lombok.Builder;

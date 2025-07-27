@@ -1,6 +1,6 @@
 package com.auth.contractservice.controller;
 
-import com.auth.contractservice.model.CustomerContractEntity;
+import com.auth.contractservice.model.old.CustomerContractEntity;
 import com.auth.contractservice.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

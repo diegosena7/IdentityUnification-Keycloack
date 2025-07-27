@@ -8,7 +8,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.auth.contractservice.model.ClientRequestDTO;
+import com.auth.contractservice.model.directory.DirectoryUserProfile;
+import com.auth.contractservice.model.dto.ClientRequestDTO;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -26,20 +27,21 @@ public class KeycloakService {
         this.webClient = WebClient.builder().baseUrl(clientProperties.getUrl()).build();
     }
 
-    public String createUser(ClientRequestDTO dto) {
-        log.info("Criando usuário: {}", dto.getUsername());
+    public String createUser(DirectoryUserProfile userProfile) {
+        log.info("Criando usuário: {}", userProfile.getFirstName() + " " + userProfile.getLastName());
 
         String token = getAdminToken();
 
         Map<String, Object> body = Map.of(
-                "username", dto.getUsername(),
-                "email", dto.getEmail(),
+                "username", userProfile.getCredentials().getUsername(),
+                "email", userProfile.getEmail(),
                 "enabled", true,
-                "firstName", dto.getFirstName(),
-                "lastName", dto.getLastName(),
+                "emailVerified", true,
+                "firstName", userProfile.getFirstName(),
+                "lastName", userProfile.getLastName(),
                 "credentials", List.of(Map.of(
                         "type", "password",
-                        "value", dto.getPassword(),
+                        "value", userProfile.getCredentials().getPassword(),
                         "temporary", false
                 ))
         );
@@ -68,7 +70,7 @@ public class KeycloakService {
         var user = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/admin/realms/" + clientProperties.getRealm() + "/users")
-                        .queryParam("username", dto.getUsername())
+                        .queryParam("username", userProfile.getCredentials().getUsername())
                         .build())
                 .header("Authorization", "Bearer " + token)
                 .retrieve()
@@ -87,7 +89,6 @@ public class KeycloakService {
         form.add("password", clientProperties.getAdminPassword());
 
         var response = webClient.post()
-        // TODO Verificar o pq do uso do realm master.
                 .uri("/realms/master/protocol/openid-connect/token")
                 .bodyValue(form)
                 .retrieve()

@@ -11,6 +11,21 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    
+   private String[] permmitedUris = {
+        "api/v1/register",
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+        "/",
+        "/favicon.ico",
+        "/images/**", 
+        "/css/**",
+        "/api",
+        "/openapi",
+        "/swagger"
+   };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
@@ -18,16 +33,7 @@ public class SecurityConfig {
                 .cors(c -> c.disable())
                 //.authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "api/v1/register",
-                                "/v3/api-docs/**",
-                                "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/",
-                                "/favicon.ico",
-                                "/images/**", 
-                                "/css/**"
-                        ).permitAll()
+                        .requestMatchers(permmitedUris).permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));

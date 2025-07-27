@@ -1,4 +1,4 @@
-package com.auth.contractservice.model;
+package com.auth.contractservice.model.old;
 
 import java.time.OffsetDateTime;
 import java.util.List;
