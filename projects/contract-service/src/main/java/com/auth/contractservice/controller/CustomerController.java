@@ -24,7 +24,7 @@ public class CustomerController {
     public ResponseEntity<CustomerEntity> getContractById(@PathVariable String customerId){
         try {
             var customerEntity = customerService.searchCustomerById(customerId);
-            return ResponseEntity.ok(customerEntity);
+            return ResponseEntity.ok(customerEntity.orElseThrow());
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }

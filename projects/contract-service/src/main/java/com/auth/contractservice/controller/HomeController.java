@@ -23,9 +23,10 @@ public class HomeController {
 
             var customerEntity = customerService.searchCustomerById(principal.getClaimAsString("sub"));
 
-            model.addAttribute("customer", customerEntity);
+            if (customerEntity.isPresent()) {
+                model.addAttribute("customer", customerEntity.get());
+            }
 
-            //System.out.println(customerEntity.toString());
 
         }
 

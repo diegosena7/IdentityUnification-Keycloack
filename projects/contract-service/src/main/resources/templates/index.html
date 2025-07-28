@@ -4,110 +4,229 @@
 <div id="page" layout:fragment="content">
     <div class="container">
         <div class="mt-5">
-            <div class="text-center hero my-5">
+            <div class="text-center my-5">
                 <img class="mb-3 app-logo" alt="RCJDL Bank" width="1024" src="/images/logo.png"/>
                 <!-- <h1 class="mb-4">RCJDL Bank</h1> -->
                 <p class="lead">
                     Projeto de exemplo para simular o Customer Identity HUB do <i>RCJDL Bank</i> para o trabalho final do curso de MBA em Arquitetura de Soluções Digitais
                 </p>
 
-                <div class="next-steps my-5" sec:authorize="isAuthenticated()">
+                <div class="my-5" sec:authorize="isAuthenticated()">
                     <h2 class="my-5 text-center" th:if="${@environment.getProperty('app.channel')}" th:text="${@environment.getProperty('app.channel')}"></h2>
                     <div class="container mt-5">
-                        <div class="d-flex flex-column gap-2">
-                            <!-- Informações Básicas -->
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#infoBasica">
-                                Informações Básicas
-                            </button>
-                            <div class="collapse" id="infoBasica">
-                                <div class="card card-body">
-                                    <p><strong>ID:</strong> <span th:text="${customer.id}"></span> </p>
-                                    <p><strong>Given Name:</strong> <span th:text="${customer.givenName}"></span></p>
-                                    <p><strong>Family Name:</strong> <span th:text="${customer.familyName}"></span></p>
-                                    <p><strong>Document:</strong> <span th:text="${customer.document}"></span></p>
-                                    <p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
-                                    <p><strong>Email Verified:</strong> <span th:text="${customer.emailVerified}"></span></p>
-                                </div>
-                            </div>
+                        <div class="d-flex flex-column gap-2" th:if="${customer == null}">
+                            <span>Dados para o cliente logado não encontrados no banco.</span>
+                        </div>
+                        <div class="d-flex flex-column gap-2" th:if="${customer != null}">
+                        <!-- Botão para mostrar/ocultar informações básicas -->
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#infoBasica" aria-expanded="false" aria-controls="infoBasica">
+                            Informações Básicas
+                        </button>
 
-                            <!-- Nome -->
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#nome">
-                                Nome
-                            </button>
-                            <div class="collapse" id="nome">
-                                <div class="card card-body">
-                                    <p><strong>Given:</strong> Diego</p>
-                                    <p><strong>Family:</strong> SilSena</p>
-                                </div>
+                        <!-- Div collapse para informações básicas -->
+                        <div class="collapse" id="infoBasica" th:if="${customer != null}">
+                            <div class="card card-body" style="text-align: left;">
+                                <table class="table table-sm table-hover align-middle w-auto">
+                                    <tbody>
+                                        <tr>
+                                            <th>ID</th>
+                                            <td th:text="${customer.id}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Given Name</th>
+                                            <td th:text="${customer.givenName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Family Name</th>
+                                            <td th:text="${customer.familyName}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Document</th>
+                                            <td th:text="${customer.document}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td th:text="${customer.email}"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email Verified</th>
+                                            <td>
+                                                <span th:if="${customer.emailVerified}" class="badge bg-success">Sim</span>
+                                                <span th:unless="${customer.emailVerified}" class="badge bg-secondary">Não</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
+                        </div>
 
-                            <!-- Contatos -->
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#contatos">
+                            <!-- Botão para mostrar/ocultar contatos -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#contatos" aria-expanded="false" aria-controls="contatos">
                                 Contatos
                             </button>
-                            <div class="collapse" id="contatos">
+
+                            <!-- Div collapse para contatos -->
+                            <div class="collapse" id="contatos" th:if="${customer != null and not #lists.isEmpty(customer.contacts)}">
                                 <div class="card card-body">
-                                    <p><strong>Email Principal:</strong> diego@email.com</p>
-                                    <p><strong>Celular:</strong> (11) 99999-9999</p>
+                                    <table class="table table-sm table-hover align-middle">
+                                        <thead>
+                                        <tr>
+                                            <!-- <th>ID</th> -->
+                                            <th>Tipo</th>
+                                            <th class="text-center">Principal?</th>
+                                            <th>Rótulo</th>
+                                            <th>Valor</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="contact : ${customer.contacts}">
+                                            <!-- <td th:text="${contact.id}"></td> -->
+                                            <td>
+                                            <span th:if="${contact.type.name() == 'EMAIL'}"><i class="bi bi-envelope"></i></span>
+                                            <span th:if="${contact.type.name() == 'PHONE'}"><i class="bi bi-telephone"></i></span>
+                                            <span th:text="${contact.type}"></span>
+                                            </td>
+                                            <td class="text-center">
+                                            <span th:if="${contact.isPrimary}" class="badge bg-success">Sim</span>
+                                            <span th:unless="${contact.isPrimary}" class="badge bg-secondary">Não</span>
+                                            </td>
+                                            <td th:text="${contact.label}"></td>
+                                            <td th:text="${contact.value}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 
-                            <!-- Residência Principal -->
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#residencia">
-                                Residência Principal
+                            <!-- Botão para mostrar/ocultar endereços -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#enderecos" aria-expanded="false" aria-controls="enderecos">
+                                Endereços
                             </button>
-                            <div class="collapse" id="residencia">
+
+                            <!-- Div collapse para endereços -->
+                            <div class="collapse" id="enderecos" th:if="${customer != null and not #lists.isEmpty(customer.addresses)}">
                                 <div class="card card-body">
-                                    <p><strong>Tipo:</strong> Residencial</p>
-                                    <p><strong>Rua:</strong> Rua Exemplo, 123</p>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover align-middle">
+                                            <thead>
+                                            <tr>
+                                                <th>Tipo</th>
+                                                <th class="text-center">Principal?</th>
+                                                <th>Rua</th>
+                                                <th>Número</th>
+                                                <th>Compl.</th>
+                                                <th>Bairro</th>
+                                                <th>Cidade</th>
+                                                <th>UF</th>
+                                                <th>CEP</th>
+                                                <th>País</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="address : ${customer.addresses}">
+                                                <td th:text="${address.type}"></td>
+                                                <td class="text-center">
+                                                    <span th:if="${address.isPrimary}" class="badge bg-success">Sim</span>
+                                                    <span th:unless="${address.isPrimary}" class="badge bg-secondary">Não</span>
+                                                </td>
+                                                <td th:text="${address.street}"></td>
+                                                <td th:text="${address.number}"></td>
+                                                <td th:text="${address.complement}"></td>
+                                                <td th:text="${address.neighborhood}"></td>
+                                                <td th:text="${address.city}"></td>
+                                                <td th:text="${address.state}"></td>
+                                                <td th:text="${address.postalCode}"></td>
+                                                <td th:text="${address.country}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Endereço de Correspondência -->
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#correspondencia">
-                                Endereço de Correspondência
-                            </button>
-                            <div class="collapse" id="correspondencia">
-                                <div class="card card-body">
-                                    <p><strong>Tipo:</strong> Comercial</p>
-                                    <p><strong>Rua:</strong> Av. Teste, 456</p>
-                                </div>
-                            </div>
-
-                            <!-- Preferências -->
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#preferencias">
+                            <!-- Botão para mostrar/ocultar preferências -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#preferencias" aria-expanded="false" aria-controls="preferencias">
                                 Preferências
                             </button>
-                            <div class="collapse" id="preferencias">
-                                <div class="card card-body">
-                                    <p><strong>Marketing Opt-In:</strong> Sim</p>
-                                    <p><strong>Canal Preferido:</strong> Email</p>
+
+                            <!-- Div collapse para preferências -->
+                            <div class="collapse" id="preferencias" th:if="${customer != null and customer.preferences != null}">
+                                <div class="card card-body" style="text-align: left;">
+                                    <table class="table table-sm table-hover align-middle w-auto">
+                                        <tbody>
+                                            <tr>
+                                                <th>Receber Marketing</th>
+                                                <td>
+                                                    <span th:if="${customer.preferences.marketingOptIn}" class="badge bg-success">Sim</span>
+                                                    <span th:unless="${customer.preferences.marketingOptIn}" class="badge bg-secondary">Não</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Receber Informações</th>
+                                                <td>
+                                                    <span th:if="${customer.preferences.informationOptIn}" class="badge bg-success">Sim</span>
+                                                    <span th:unless="${customer.preferences.informationOptIn}" class="badge bg-secondary">Não</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Canal Preferido</th>
+                                                <td th:text="${customer.preferences.preferredChannel}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 
-                            <!-- Memberships -->
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#membership">
-                                Memberships
+                            <!-- Botão para mostrar/ocultar Memberships -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#memberships" aria-expanded="false" aria-controls="memberships">
+                                Contratos (Memberships)
                             </button>
-                            <div class="collapse" id="membership">
+
+                            <!-- Div collapse para Memberships -->
+                            <div class="collapse" id="memberships" th:if="${customer != null and not #lists.isEmpty(customer.memberships)}">
                                 <div class="card card-body">
-                                    <ul>
-                                        <li>Cartão Black - Ativo</li>
-                                        <li>Conta Corrente - Ativo</li>
-                                    </ul>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-hover align-middle">
+                                            <thead>
+                                            <tr>
+                                                <!-- <th>ID</th> -->
+                                                <th>Código do Produto</th>
+                                                <th>Nome do Produto</th>
+                                                <th>Status</th>
+                                                <th>Contrato</th>
+                                                <th>Nível de Benefício</th>
+                                                <th>Quote</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="membership : ${customer.memberships}">
+                                                <!-- <td th:text="${membership.id}"></td> -->
+                                                <td th:text="${membership.productCode}"></td>
+                                                <td th:text="${membership.productName}"></td>
+                                                <td>
+                                                    <span class="badge bg-info" th:text="${membership.status}"></span>
+                                                </td>
+                                                <td th:text="${membership.contractId != null && membership.contractId != '' ? membership.contractId : '-'}"></td>
+                                                <td th:text="${membership.benefitTier != null && membership.benefitTier != '' ? membership.benefitTier : '-'}"></td>
+                                                <td th:text="${membership.quoteId != null && membership.quoteId != '' ? membership.quoteId : '-'}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
 
-                            <!-- Contexto -->
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#contexto">
-                                Contexto
-                            </button>
-                            <div class="collapse" id="contexto">
-                                <div class="card card-body">
-                                    <p><strong>Último Canal de Login:</strong> Web</p>
-                                    <p><strong>Último Login:</strong> 2025-07-27T10:00:00Z</p>
-                                </div>
-                            </div>
+
+
+
+
+
+
+
+
+
+
+
                         </div>
                     </div>
                 </div>

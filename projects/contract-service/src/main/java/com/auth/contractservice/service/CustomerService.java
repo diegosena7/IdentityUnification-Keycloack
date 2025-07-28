@@ -2,6 +2,7 @@ package com.auth.contractservice.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -31,12 +32,12 @@ public class CustomerService {
     private final KeycloakService keycloakService;
     private final CustomerRepository customerRepository;
 
-    public CustomerEntity searchCustomerById(String customerID) {
-        return customerRepository.findById(UUID.fromString(customerID)).orElseThrow();
+    public Optional<CustomerEntity> searchCustomerById(String customerID) {
+        return customerRepository.findById(UUID.fromString(customerID));
     }
 
-    public CustomerEntity searchCustomerByEmail(String customerEmail) {
-        return customerRepository.findByEmail(customerEmail).orElseThrow();
+    public Optional<CustomerEntity> searchCustomerByEmail(String customerEmail) {
+        return customerRepository.findByEmail(customerEmail);
     }    
 
     public CustomerEntity createUser(CustomerRequestDTO request) {
