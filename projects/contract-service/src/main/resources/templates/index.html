@@ -11,68 +11,107 @@
                     Projeto de exemplo para simular o Customer Identity HUB do <i>RCJDL Bank</i> para o trabalho final do curso de MBA em Arquitetura de Soluções Digitais
                 </p>
 
-                <div class="next-steps my-5">
+                <div class="next-steps my-5" sec:authorize="isAuthenticated()">
                     <h2 class="my-5 text-center" th:if="${@environment.getProperty('app.channel')}" th:text="${@environment.getProperty('app.channel')}"></h2>
-                </div>
+                    <div class="container mt-5">
+                        <div class="d-flex flex-column gap-2">
+                            <!-- Informações Básicas -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#infoBasica">
+                                Informações Básicas
+                            </button>
+                            <div class="collapse" id="infoBasica">
+                                <div class="card card-body">
+                                    <p><strong>ID:</strong> <span th:text="${customer.id}"></span> </p>
+                                    <p><strong>Given Name:</strong> <span th:text="${customer.givenName}"></span></p>
+                                    <p><strong>Family Name:</strong> <span th:text="${customer.familyName}"></span></p>
+                                    <p><strong>Document:</strong> <span th:text="${customer.document}"></span></p>
+                                    <p><strong>Email:</strong> <span th:text="${customer.email}"></span></p>
+                                    <p><strong>Email Verified:</strong> <span th:text="${customer.emailVerified}"></span></p>
+                                </div>
+                            </div>
 
-            </div>
+                            <!-- Nome -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#nome">
+                                Nome
+                            </button>
+                            <div class="collapse" id="nome">
+                                <div class="card card-body">
+                                    <p><strong>Given:</strong> Diego</p>
+                                    <p><strong>Family:</strong> SilSena</p>
+                                </div>
+                            </div>
 
-           
+                            <!-- Contatos -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#contatos">
+                                Contatos
+                            </button>
+                            <div class="collapse" id="contatos">
+                                <div class="card card-body">
+                                    <p><strong>Email Principal:</strong> diego@email.com</p>
+                                    <p><strong>Celular:</strong> (11) 99999-9999</p>
+                                </div>
+                            </div>
 
-            <hr/>
-            
+                            <!-- Residência Principal -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#residencia">
+                                Residência Principal
+                            </button>
+                            <div class="collapse" id="residencia">
+                                <div class="card card-body">
+                                    <p><strong>Tipo:</strong> Residencial</p>
+                                    <p><strong>Rua:</strong> Rua Exemplo, 123</p>
+                                </div>
+                            </div>
 
-            <div class="next-steps my-5">
-                <h2 class="my-5 text-center" th:if="${@environment.getProperty('app.channel')}" th:text="${@environment.getProperty('app.channel')}"></h2>
+                            <!-- Endereço de Correspondência -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#correspondencia">
+                                Endereço de Correspondência
+                            </button>
+                            <div class="collapse" id="correspondencia">
+                                <div class="card card-body">
+                                    <p><strong>Tipo:</strong> Comercial</p>
+                                    <p><strong>Rua:</strong> Av. Teste, 456</p>
+                                </div>
+                            </div>
 
-                <h2 class="my-5 text-center"
-                    sec:authorize="isAuthenticated()"
-                    th:text="'Bem vindo ' + (${#authentication.principal.attributes['given_name'] ?: ''} + ' ' + (${#authentication.principal.attributes['family_name'] ?: ''}))">
-                </h2>
+                            <!-- Preferências -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#preferencias">
+                                Preferências
+                            </button>
+                            <div class="collapse" id="preferencias">
+                                <div class="card card-body">
+                                    <p><strong>Marketing Opt-In:</strong> Sim</p>
+                                    <p><strong>Canal Preferido:</strong> Email</p>
+                                </div>
+                            </div>
 
-                <div class="row">
-                    <div class="col-md-5 mb-4" sec:authorize="isAuthenticated()">
-                        <h6 class="mb-3">
-                            <a href="#">
-                                <i class="fas fa-link mr-2">User Details</i>
-                            </a>
-                        </h6>
-                        <p>
-                            Logged name: <span sec:authentication="name"></span>
-                        </p>
-                        <p>
-                            Logged username: <span sec:authentication="principal.attributes[preferred_username]"></span>
-                        </p>
-                        <p>
-                            Principal Authorities: <br><span sec:authentication="principal.authorities"></span></br>
-                        </p>
-                        <p>
-                            Security Context Authorities: <br><span sec:authentication="authorities"></span></br>
-                        </p>
+                            <!-- Memberships -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#membership">
+                                Memberships
+                            </button>
+                            <div class="collapse" id="membership">
+                                <div class="card card-body">
+                                    <ul>
+                                        <li>Cartão Black - Ativo</li>
+                                        <li>Conta Corrente - Ativo</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Contexto -->
+                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#contexto">
+                                Contexto
+                            </button>
+                            <div class="collapse" id="contexto">
+                                <div class="card card-body">
+                                    <p><strong>Último Canal de Login:</strong> Web</p>
+                                    <p><strong>Último Login:</strong> 2025-07-27T10:00:00Z</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-5 mb-4" sec:authorize="isAuthenticated()">
-                        <h6 class="mb-3">
-                            <a href="#">
-                                <i class="fas fa-link mr-2">Authenticated Resource</i>
-                            </a>
-                        </h6>
-                        <p>This resource only appears when user is authenticated!</p>
-                    </div>
-
-                    <div class="col-md"></div>
-
-                    <div class="col-md-5 mb-4" sec:authorize="hasRole('Admin')">
-                        <h6 class="mb-3">
-                            <a href="#">
-                                <i class="fas fa-link mr-2">Authorized Resource</i>
-                            </a>
-                        </h6>
-                        <p>This resource only appears when user is authorized! The user needs to have an 'admin' role.</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

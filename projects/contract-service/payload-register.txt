@@ -1,0 +1,55 @@
+{
+  "givenName": "Joyle",
+  "familyName": "Novaes da Silva",
+  "document": "123.456.789-00",
+  "email": "joyle@joyle.dev",
+  "emailVerified": true,
+  "pictureUrl": "https://cdn-icons-png.flaticon.com/128/179/179809.png",
+  "credentials": {
+    "username": "joylens",
+    "password": "1234"
+  },
+  "contacts": [
+    {
+      "type": "EMAIL",
+      "isPrimary": true,
+      "label": "gmail",
+      "value": "joyle@joyle.dev"
+    },
+    {
+      "type": "PHONE",
+      "isPrimary": false,
+      "label": "celular pessoal",
+      "value": "11 9 9898-8989"
+    }
+  ],
+  "addresses": [
+    {
+      "type": "RESIDENTIAL",
+      "isPrimary": true,
+      "street": "Av. Nostradamus",
+      "number": "123",
+      "complement": "Casa da Advinhação",
+      "neighborhood": "Próximo ao Oráculo",
+      "city": "São Paulo",
+      "state": "SP",
+      "postalCode": "04600000",
+      "country": "BR"
+    }
+  ],
+  "preferences": {
+    "marketingOptIn": true,
+    "informationOptIn": true,
+    "preferredChannel": "MOBILE"
+  },
+  "memberships": [
+    {
+      "productCode": "XPTO-CODE",
+      "productName": "Produto XPTO",
+      "status": "ACTIVE",
+      "contractId": "123-CT",
+      "benefitTier": "GOLD",
+      "quoteId": "123-QT"
+    }
+  ]
+}

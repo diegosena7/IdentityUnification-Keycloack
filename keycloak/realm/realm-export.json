@@ -51,6 +51,26 @@
       "publicClient": false,
       "frontchannelLogout": true,
       "protocol": "openid-connect"
+    },
+    {
+      "clientId": "channel-cih",
+      "description": "Channel Customer Identity HUB",
+      "rootUrl": "http://localhost:8082",
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "dDoAclRfmKoq5Ba4MIPPBYLm95YTprZl",
+      "redirectUris": ["*"],
+      "webOrigins": ["*"],
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect"
     }
   ],
   "users": [

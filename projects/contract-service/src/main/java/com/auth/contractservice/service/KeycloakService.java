@@ -9,7 +9,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.auth.contractservice.model.directory.DirectoryUserProfile;
-import com.auth.contractservice.model.dto.ClientRequestDTO;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -43,7 +42,10 @@ public class KeycloakService {
                         "type", "password",
                         "value", userProfile.getCredentials().getPassword(),
                         "temporary", false
-                ))
+                )),
+                "attributes", Map.of(
+                    "picture", userProfile.getPicture()
+                )
         );
 
 

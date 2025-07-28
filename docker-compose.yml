@@ -89,6 +89,7 @@ services:
       KEYCLOAK_URL: http://192.168.177.22:7080
       POSTGRES_URL: jdbc:postgresql://postgres:5432/bootcamp
       SERVER_PORT: 8082
+      CLIENT_ID: channel-cih
     ports:
       - "8082:8082"
     depends_on:
@@ -107,6 +108,7 @@ services:
       # É preciso passar o IP real do host no endpoint de issuer_uri.
       # Altere na sua máquina!
       ISSUER_URI: http://192.168.177.22:7080/realms/bootcamp-realm
+      CUSTOMER_HUB_URL: http://localhost:8082/oauth2/authorization/keycloak
     ports:
       - "9090:9090"
     depends_on:
@@ -125,6 +127,7 @@ services:
       # É preciso passar o IP real do host no endpoint de issuer_uri.
       # Altere na sua máquina!
       ISSUER_URI: http://192.168.177.22:7080/realms/bootcamp-realm
+      CUSTOMER_HUB_URL: http://localhost:8082/oauth2/authorization/keycloak
     ports:
       - "9091:9091"
     depends_on:

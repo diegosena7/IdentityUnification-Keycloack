@@ -17,6 +17,8 @@ public class DirectoryUserProfile {
     @NotBlank
     private String lastName;
 
+    private String picture;
+
     @NotNull
     private DirectoryUserCredentials credentials;
 }

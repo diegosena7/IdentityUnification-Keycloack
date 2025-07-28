@@ -4,6 +4,19 @@ server:
 spring:
   security:
     oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: ${CLIENT_ID:channel-cih}
+            client-secret: dDoAclRfmKoq5Ba4MIPPBYLm95YTprZl
+            scope:
+              - openid
+              - profile
+              - email
+              - address
+        provider:
+          keycloak:
+            issuer-uri: ${ISSUER_URI:http://localhost:7080/realms/bootcamp-realm}
       resourceserver:
         jwt:
           issuer-uri: ${ISSUER_URI:http://localhost:7080/realms/bootcamp-realm}

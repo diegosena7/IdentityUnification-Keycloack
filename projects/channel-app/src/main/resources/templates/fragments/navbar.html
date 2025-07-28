@@ -50,7 +50,7 @@
                         <div class="dropdown-menu dropdown-menu-left">
                             <!-- Show the user's full name from the id token here -->
                             <div class="dropdown-header" th:text="${profile.get('name')}"></div>
-                            <a href="/profile" class="dropdown-item dropdown-profile">
+                            <a th:href="${@environment.getProperty('customerhub.link')}" target="_blank" class="dropdown-item dropdown-profile">
                                 <i class="fas fa-user mr-3"></i> Profile
                             </a>
                             <a id="qsLogoutBtn" th:href="@{/logout}" class="dropdown-item">
@@ -80,7 +80,7 @@
                     </li>
                     <li>
                         <i class="fas fa-user mr-3"></i>
-                        <a th:href="@{/profile}"> Profile</a>
+                        <a th:href="${@environment.getProperty('customerhub.link')}" target="_blank"> Profile</a>
                     </li>
 
                     <li>

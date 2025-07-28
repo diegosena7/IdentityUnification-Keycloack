@@ -11,6 +11,9 @@ logging:
     #'[br.com.k3t.mvc.oauth]': TRACE
     '[org.springframework.security]': DEBUG
 
+customerhub:
+  link: ${CUSTOMER_HUB_URL:http://localhost:8083/oauth2/authorization/keycloak}
+
 spring:
   security:
     oauth2:

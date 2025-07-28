@@ -8,6 +8,7 @@ public record CustomerRequestDTO(
     String document,
     String email,
     Boolean emailVerified,
+    String pictureUrl,
     CredentialsDTO credentials,
     List<ContactDTO> contacts,
     List<AddressDTO> addresses,
